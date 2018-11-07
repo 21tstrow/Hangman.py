@@ -1,0 +1,122 @@
+#This can be compiled in an online python 2 compiler
+
+import random
+
+#The following images are the hangman's stages of progression
+
+hangman_1 = "_____"
+
+hangman_2 = """ 
+  ____
+  |
+  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_3 = """
+  ____
+  |  O
+  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_4 = """ 
+  ____
+  |  O
+  |  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_5 = """
+  ____
+  |  O
+  |  |/
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_6 = """
+  ____
+  |  O
+  | \|/
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_7 = """
+  ____
+  |  O
+  | \|/
+  |  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_8 = """
+  ___
+  |  O
+  | \|/
+  |  |
+  | /
+  |
+  |
+_____
+"""
+
+hangman_9 = """
+  ___
+  |  O
+  | \|/
+  |  |
+  | / \
+  |
+  |
+_____
+"""
+
+
+
+
+#The following is a word bank of words compiled from  an article written by Laura Hale Brockway: https://www.prdaily.com/Main/Articles/20880.aspx
+
+easy_word_bank = ["akward", "bagpipes", "banjo", "bunglar", "croquet", "crypt", "dwarves", "fervid", "fishhook", "fjord", "gazebo", "gypsy", "haiku", "haphazard", "hyphen", "ivory", "jazzy", "jiffy", "jinx", "jukebox", "kayak", "kiosk", "klutz", "memento", "mystify", "numbskull", "ostracize", "oxygen", "pajama", "phlegm", "pixel", "polka", "quad", "quip", "rhythmic", "rogue", "sphinx", "squawk", "swivel", "toady", "twelfth", "unzip", "waxy", "wildebeest", "yacht", "zealous", "zigzag", "zippy", "zombie"]
+
+
+
+
+
+
+#The following is the algorithm for the game itself
+
+word = easy_word_bank[random.randint(0,49)]
+
+#The following is the algoritm for displaying the number of blanks to correspond to a word
+
+word_length = len(word)
+
+while word_length > 0:
+  print "_ ",
+  word_length -= 1
+  
+
+
