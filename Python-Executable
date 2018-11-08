@@ -120,3 +120,4 @@ while word_length > 0:
   
 
 
+#Use a for loop with multiple variables for each guess to replace blanks.
