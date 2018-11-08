@@ -118,6 +118,32 @@ while word_length > 0:
   print "_ ",
   word_length -= 1
   
+#The following is the algorithm to print guessed letters
+print word
+print ""
+user_guesses = []
 
 
-#Use a for loop with multiple variables for each guess to replace blanks.
+def turn():
+  user_guess1 = raw_input("Guess your next letter here: ")
+  user_guesses.insert(0, user_guess1)  
+  for x in word:
+    testcase1 = 0
+    for z in range(len(user_guesses)):
+      if x == user_guesses[z]:
+        print x,
+        testcase1 = 1
+    if testcase1 != 1:
+      print "_",
+  print " "
+  print " "
+  print "These are your guessed letters:"
+  for c in user_guesses:
+    print c,
+  print " "
+  turn()
+  
+    
+
+
+turn()
