@@ -147,3 +147,4 @@ def turn():
 
 
 turn()
+#ASSIGN a variable, similar to testcase1 alongside print "_" so that the game can sense when there are no more blanks being printed; thus game will end through sys.exit
