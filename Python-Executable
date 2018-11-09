@@ -100,7 +100,7 @@ _____
 
 #The following is a word bank of words compiled from  an article written by Laura Hale Brockway: https://www.prdaily.com/Main/Articles/20880.aspx
 
-easy_word_bank = ["akward", "bagpipes", "banjo", "bunglar", "croquet", "crypt", "dwarves", "fervid", "fishhook", "fjord", "gazebo", "gypsy", "haiku", "haphazard", "hyphen", "ivory", "jazzy", "jiffy", "jinx", "jukebox", "kayak", "kiosk", "klutz", "memento", "mystify", "numbskull", "ostracize", "oxygen", "pajama", "phlegm", "pixel", "polka", "quad", "quip", "rhythmic", "rogue", "sphinx", "squawk", "swivel", "toady", "twelfth", "unzip", "waxy", "wildebeest", "yacht", "zealous", "zigzag", "zippy", "zombie"]
+hard_word_bank = ["akward", "bagpipes", "banjo", "bunglar", "croquet", "crypt", "dwarves", "fervid", "fishhook", "fjord", "gazebo", "gypsy", "haiku", "haphazard", "hyphen", "ivory", "jazzy", "jiffy", "jinx", "jukebox", "kayak", "kiosk", "klutz", "memento", "mystify", "numbskull", "ostracize", "oxygen", "pajama", "phlegm", "pixel", "polka", "quad", "quip", "rhythmic", "rogue", "sphinx", "squawk", "swivel", "toady", "twelfth", "unzip", "waxy", "wildebeest", "yacht", "zealous", "zigzag", "zippy", "zombie"]
 
 
 
@@ -109,41 +109,56 @@ easy_word_bank = ["akward", "bagpipes", "banjo", "bunglar", "croquet", "crypt", 
 
 #The following is the algorithm for the game itself
 
-word = easy_word_bank[random.randint(0,49)]
+word = hard_word_bank[random.randint(0,((len(hard_word_bank) - 1)))]
 
 #The following is the algoritm for displaying the number of blanks to correspond to a word
-
 word_length = len(word)
 
-while word_length > 0:
-  print "_ ",
-  word_length -= 1
-  
+for r in word:
+  if r == " ":
+    print r,
+  else:
+    print "_",
 #The following is the algorithm to print guessed letters
-print word
-print ""
-user_guesses = []
 
+user_guesses = []
 global hangmanvalue
 hangmanvalue = 1
 
-
-
 def turn():
   global hangmanvalue
+  print " "
+  global user_guess1
   user_guess1 = raw_input("Guess your next letter here: ")
+  def spell_check():
+    for d in user_guesses:
+      global user_guess1
+      if user_guess1 == d:
+        print "You've already used that letter... Try again!"
+        user_guess1 = raw_input("Type here: ")
+        spell_check()
+  spell_check()  
+  print """ 
+   
+   
+   
+  """
   user_guesses.insert(0, user_guess1)   
-  testcase_2 = 0
+  testcase_5 = 0
+  testcase_4 = 0
+  print " "
   for x in word:
-    
     testcase1 = 0
-    for z in range(len(user_guesses)):
-      if x == user_guesses[z]:
-        print x,
-        testcase1 = 1
-    if testcase1 != 1:
-      print "_",
-      testcase_2 = 1
+    if x == " ":
+      print " ",
+    else:
+      for z in range(len(user_guesses)):
+        if x == user_guesses[z]:
+          print x,
+          testcase1 = 1
+      if testcase1 != 1:
+        print "_",
+        testcase_5 = 1
   
   print " "
   testcase = 0
@@ -177,7 +192,7 @@ def turn():
     print "YOU LOSE!!!"
     print " "
     print "This was what you where trying to guess: " + word
-    sys.exit
+    sys.exit()
 
 
 
@@ -187,10 +202,12 @@ def turn():
     print c,
   print " "
 
+  if testcase_5 != 1:
+    print " "
+    print " "
+    print "YOU WIN!!!"
+    sys.exit()
+  
   turn()
   
-    
-
-
 turn()
-#ASSIGN a variable, similar to testcase1 alongside print "_" so that the game can sense when there are no more blanks being printed; thus game will end through sys.exit
