@@ -1,6 +1,7 @@
 #This can be compiled in an online python 2 compiler
 
 import random
+import sys
 
 #The following images are the hangman's stages of progression
 
@@ -123,11 +124,18 @@ print word
 print ""
 user_guesses = []
 
+global hangmanvalue
+hangmanvalue = 1
+
+
 
 def turn():
+  global hangmanvalue
   user_guess1 = raw_input("Guess your next letter here: ")
-  user_guesses.insert(0, user_guess1)  
+  user_guesses.insert(0, user_guess1)   
+  testcase_2 = 0
   for x in word:
+    
     testcase1 = 0
     for z in range(len(user_guesses)):
       if x == user_guesses[z]:
@@ -135,12 +143,50 @@ def turn():
         testcase1 = 1
     if testcase1 != 1:
       print "_",
+      testcase_2 = 1
+  
   print " "
+  testcase = 0
+  for y in word:
+    if y == user_guesses[0]:
+      testcase_4 = 1
+  
+  if testcase_4 == 0:
+    print "Sorry, that letter wasn't in there!"
+    hangmanvalue += 1
+
+  
+  if hangmanvalue == 1:
+    print hangman_1
+  elif hangmanvalue == 2:
+    print hangman_2
+  elif hangmanvalue == 3:
+    print hangman_3
+  elif hangmanvalue == 4:
+    print hangman_4
+  elif hangmanvalue == 5:
+    print hangman_5
+  elif hangmanvalue == 6:
+    print hangman_6
+  elif hangmanvalue == 7:
+    print hangman_7
+  elif hangmanvalue == 8:
+    print hangman_8
+  elif hangmanvalue == 9:
+    print hangman_9
+    print "YOU LOSE!!!"
+    print " "
+    print "This was what you where trying to guess: " + word
+    sys.exit
+
+
+
   print " "
   print "These are your guessed letters:"
   for c in user_guesses:
     print c,
   print " "
+
   turn()
   
     
