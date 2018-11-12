@@ -1,0 +1,245 @@
+#This can be compiled in an online python 3 compiler
+
+import random
+import sys
+
+#The following images are the hangman's stages of progression
+
+hangman_1 = "_____"
+
+hangman_2 = """ 
+  ____
+  |
+  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_3 = """
+  ____
+  |  O
+  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_4 = """ 
+  ____
+  |  O
+  |  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_5 = """
+  ____
+  |  O
+  |  |/
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_6 = """
+  ____
+  |  O
+  | \|/
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_7 = """
+  ____
+  |  O
+  | \|/
+  |  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_8 = """
+  ___
+  |  O
+  | \|/
+  |  |
+  | /
+  |
+  |
+_____
+"""
+
+hangman_9 = """
+  
+  ___
+  |  O
+  | \|/
+  |  |
+  | / \
+  |
+  |
+_____
+"""
+
+#The following are the word banks and phrase banks used for single player
+
+
+
+easy_word_bank = ["acres", "adult", "advice", "arrangement", "attempt", "august", "autumn", "border", "breeze", "brick", "calm", "canal", "cast", "chose", "claws", "coach", "constantly", "contrast", "cookies", "customs", "damage", "Danny", "deeply", "depth", "discussion", "doll", "donkey", "Egypt", "Ellen", "essential", "exchange", "exist", "explanation", "facing", "film", "finest", "fireplace", "floating", "fort", "garage", "grabbed", "grandmother", "habit", "happily", "Harry", "heading", "hunter", "Illinois", "image", "independent", "instant", "January", "kids", "label", "Lee", "lungs", "manufacturing", "Martin", "mathematics", "melted", "memory", "mill", "mission", "monkey", "Mount", "mysterious", "neighborhood", "Norway", "nuts", "occasionally", "official", "ourselves", "palace", "Pennsylvania", "Philadelphia", "plates", "poetry", "policeman", "positive", "possibly", "practical", "pride", "promised", "recall", "relationship", "remarkable, require, rhyme, rocky, rubbed, rush, sale, satellites, satisfied, scared, selection", "shake", "shaking", "shallow", "shout", "silly", "simplest", "slight", "slip", "slope", "soap", "solar", "species", "spin", "stiff", "swung", "tales", "thumb", "tobacco", "toy", "trap", "treated", "tune", "University", "vapor", "vessels", "wealth", "wolf", "zoo"]
+
+#The following is a word bank of words compiled from  an article written by Laura Hale Brockway: https://www.prdaily.com/Main/Articles/20880.aspx
+hard_word_bank = ["akward", "bagpipes", "banjo", "bunglar", "croquet", "crypt", "dwarves", "fervid", "fishhook", "fjord", "gazebo", "gypsy", "haiku", "haphazard", "hyphen", "ivory", "jazzy", "jiffy", "jinx", "jukebox", "kayak", "kiosk", "klutz", "memento", "mystify", "numbskull", "ostracize", "oxygen", "pajama", "phlegm", "pixel", "polka", "quad", "quip", "rhythmic", "rogue", "sphinx", "squawk", "swivel", "toady", "twelfth", "unzip", "waxy", "wildebeest", "yacht", "zealous", "zigzag", "zippy", "zombie"]
+
+
+
+
+
+
+#The following is the algorithm for the game itself
+global player_count
+player_count = input("How many players are playing? Type either 1 or 2: ")
+
+def spell_check_player_count():
+  global player_count
+  if ((player_count != "1") and (player_count != "2")):
+    print("Make sure you type either 1 or 2")
+    player_count = input("Type here: ")
+    spell_check_player_count()
+spell_check_player_count()
+
+if player_count == "2":
+  print("Okay, let's begin!")
+  word = input("Player one, type your word or phrase here: ")
+
+global easyorhard
+if player_count == "1":
+  easyorhard = input("Would you like an easy or hard word? Type \'easy\' or \'hard\': ")
+  def easyorhard_spellcheck():
+    global easyorhard
+    if ((easyorhard != "easy") and (easyorhard != "hard")):
+      easyorhard = input("Double check your spelling and   try again. Apostrophes aren't needed. Type here: ")
+      easyorhard_spellcheck()
+  easyorhard_spellcheck()
+  if easyorhard == "easy":
+    print("OK! Let's begin!")
+    word = easy_word_bank[random.randint(0,((len  (easy_word_bank) - 1)))]
+
+  if easyorhard == "hard":
+    print("OK! Let's begin!")
+    word = hard_word_bank[random.randint(0,((len  (hard_word_bank) - 1)))]
+
+#The following is the algoritm for displaying the number of blanks to correspond to a word
+word_length = len(word)
+
+for r in word:
+  if r == " ":
+    print(r, end=' ')
+  else:
+    print("_", end=' ')
+#The following is the algorithm to print guessed letters
+word = word.lower()
+user_guesses = []
+global hangmanvalue
+hangmanvalue = 1
+
+def turn():
+  global hangmanvalue
+  print(" ")
+  global user_guess1
+  user_guess1 = input("Guess your next letter here: ")
+  def spell_check():
+    for d in user_guesses:
+      global user_guess1
+      if user_guess1 == d:
+        print("You've already used that letter... Try again!")
+        user_guess1 = input("Type here: ")
+        spell_check()
+  spell_check()  
+  print(""" 
+   
+   
+   
+  """)
+  user_guesses.insert(0, user_guess1)   
+  testcase_5 = 0
+  testcase_4 = 0
+  print(" ")
+  for x in word:
+    testcase1 = 0
+    if x == " ":
+      print(" ", end=' ')
+    else:
+      for z in range(len(user_guesses)):
+        if x == user_guesses[z]:
+          print(x, end=' ')
+          testcase1 = 1
+      if testcase1 != 1:
+        print("_", end=' ')
+        testcase_5 = 1
+  
+  print(" ")
+  testcase = 0
+  for y in word:
+    if y == user_guesses[0]:
+      testcase_4 = 1
+  
+  if testcase_4 == 0:
+    print("Sorry, that letter wasn't in there!")
+    hangmanvalue += 1
+
+  
+  if hangmanvalue == 1:
+    print(hangman_1)
+  elif hangmanvalue == 2:
+    print(hangman_2)
+  elif hangmanvalue == 3:
+    print(hangman_3)
+  elif hangmanvalue == 4:
+    print(hangman_4)
+  elif hangmanvalue == 5:
+    print(hangman_5)
+  elif hangmanvalue == 6:
+    print(hangman_6)
+  elif hangmanvalue == 7:
+    print(hangman_7)
+  elif hangmanvalue == 8:
+    print(hangman_8)
+  elif hangmanvalue == 9:
+    print(hangman_9)
+    print("YOU LOSE!!!")
+    print(" ")
+    print("This was what you where trying to guess: " + word)
+    sys.exit()
+
+
+
+  print(" ")
+  print("These are your guessed letters:")
+  for c in user_guesses:
+    print(c, end=' ')
+  print(" ")
+
+  if testcase_5 != 1:
+    print(" ")
+    print(" ")
+    print("YOU WIN!!!")
+    sys.exit()
+  
+  turn()
+  
+turn()
