@@ -125,6 +125,10 @@ spell_check_player_count()
 if player_count == "2":
   print "Okay, let's begin!"
   word = raw_input("Player one, type your word or phrase here: ")
+  i = 1
+  while i < 100:
+    print " "
+    i += 1
 
 global easyorhard
 if player_count == "1":
@@ -157,14 +161,43 @@ user_guesses = []
 global hangmanvalue
 hangmanvalue = 1
 
+def hangman_stage_current():
+  if hangmanvalue == 1:
+    print hangman_1
+  elif hangmanvalue == 2:
+    print hangman_2
+  elif hangmanvalue == 3:
+    print hangman_3
+  elif hangmanvalue == 4:
+    print hangman_4
+  elif hangmanvalue == 5:
+    print hangman_5
+  elif hangmanvalue == 6:
+    print hangman_6
+  elif hangmanvalue == 7:
+    print hangman_7
+  elif hangmanvalue == 8:
+    print hangman_8
+  elif hangmanvalue == 9:
+    print hangman_9
+    print "YOU LOSE!!!"
+    print " "
+    print "This was what you where trying to guess: " + word
+    sys.exit()
+
+
 def turn():
   global hangmanvalue
   print " "
   global user_guess1
   user_guess1 = raw_input("Guess your next letter here: ")
   def spell_check():
+    global user_guess1
+    if len(user_guess1) != 1:
+      print "Make sure you only type one letter... Try again!"
+      user_guess1 = raw_input("Type here: ")
+      spell_check()
     for d in user_guesses:
-      global user_guess1
       if user_guess1 == d:
         print "You've already used that letter... Try again!"
         user_guess1 = raw_input("Type here: ")
@@ -202,38 +235,14 @@ def turn():
     print "Sorry, that letter wasn't in there!"
     hangmanvalue += 1
 
-  
-  if hangmanvalue == 1:
-    print hangman_1
-  elif hangmanvalue == 2:
-    print hangman_2
-  elif hangmanvalue == 3:
-    print hangman_3
-  elif hangmanvalue == 4:
-    print hangman_4
-  elif hangmanvalue == 5:
-    print hangman_5
-  elif hangmanvalue == 6:
-    print hangman_6
-  elif hangmanvalue == 7:
-    print hangman_7
-  elif hangmanvalue == 8:
-    print hangman_8
-  elif hangmanvalue == 9:
-    print hangman_9
-    print "YOU LOSE!!!"
-    print " "
-    print "This was what you where trying to guess: " + word
-    sys.exit()
-
-
+  hangman_stage_current()
 
   print " "
   print "These are your guessed letters:"
   for c in user_guesses:
     print c,
   print " "
-
+  
   if testcase_5 != 1:
     print " "
     print " "
