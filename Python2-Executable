@@ -203,11 +203,9 @@ def turn():
         user_guess1 = raw_input("Type here: ")
         spell_check()
   spell_check()  
-  print """ 
-   
-   
-   
-  """
+  xvc = 1
+  while xvc < 5:
+    print " "
   user_guesses.insert(0, user_guess1)   
   testcase_5 = 0
   testcase_4 = 0
@@ -224,31 +222,24 @@ def turn():
       if testcase1 != 1:
         print "_",
         testcase_5 = 1
-  
   print " "
   testcase = 0
   for y in word:
     if y == user_guesses[0]:
-      testcase_4 = 1
-  
+      testcase_4 = 1 
   if testcase_4 == 0:
     print "Sorry, that letter wasn't in there!"
     hangmanvalue += 1
-
   hangman_stage_current()
-
   print " "
   print "These are your guessed letters:"
   for c in user_guesses:
     print c,
   print " "
-  
   if testcase_5 != 1:
     print " "
     print " "
     print "YOU WIN!!!"
     sys.exit()
-  
-  turn()
-  
+  turn() 
 turn()
