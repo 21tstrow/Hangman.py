@@ -206,7 +206,7 @@ def turn():
   xvc = 1
   while xvc < 5:
     print " "
-    i += 1
+    xvc += 1
   user_guesses.insert(0, user_guess1)   
   testcase_5 = 0
   testcase_4 = 0
