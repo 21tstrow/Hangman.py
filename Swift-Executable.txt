@@ -23,6 +23,10 @@ templetter = ""
 
 var testcaseBlanks: Int
 testcaseBlanks = 0
+
+var user_guess1: String?
+user_guess1 = ""
+
 //Word Banks:
 
 let easy_word_bank = ["acres", "adult", "advice", "arrangement", "attempt", "august", "autumn", "border", "breeze", "brick", "calm", "canal", "cast", "chose", "claws", "coach", "constantly", "contrast", "cookies", "customs", "damage", "Danny", "deeply", "depth", "discussion", "doll", "donkey", "Egypt", "Ellen", "essential", "exchange", "exist", "explanation", "facing", "film", "finest", "fireplace", "floating", "fort", "garage", "grabbed", "grandmother", "habit", "happily", "Harry", "heading", "hunter", "Illinois", "image", "independent", "instant", "January", "kids", "label", "Lee", "lungs", "manufacturing", "Martin", "mathematics", "melted", "memory", "mill", "mission", "monkey", "Mount", "mysterious", "neighborhood", "Norway", "nuts", "occasionally", "official", "ourselves", "palace", "Pennsylvania", "Philadelphia", "plates", "poetry", "policeman", "positive", "possibly", "practical", "pride", "promised", "recall", "relationship", "remarkable, require, rhyme, rocky, rubbed, rush, sale, satellites, satisfied, scared, selection", "shake", "shaking", "shallow", "shout", "silly", "simplest", "slight", "slip", "slope", "soap", "solar", "species", "spin", "stiff", "swung", "tales", "thumb", "tobacco", "toy", "trap", "treated", "tune", "University", "vapor", "vessels", "wealth", "wolf", "zoo"]
@@ -70,7 +74,7 @@ func print_blanks() {
     testcaseBlanks = 0
     if letters == " " {
       print(" ", terminator: " ")
-    }else{   //Debug Below
+    }else{
     templetter = String(letters)
     for guesses in user_guesses {
       if guesses as? String == templetter {
@@ -87,7 +91,35 @@ func print_blanks() {
   }
 }
 
+func spell_check() {
+  if user_guess1!.count != 1 {
+    print("Only guess one letter! Type here: ", terminator: "")
+    user_guess1 = readLine()
+    spell_check()
+  for guess in user_guesses {
+    if user_guess1 == guess as? String {
+      print("You've already used that letter... Try again! Type Here: ", terminator: "")
+      user_guess1 = readLine()
+      spell_check()
+    }
+  }
+  }
+}
 
+
+func turn() {
+  print(" ")
+  print("Guess your next letter here: ", terminator: "")
+  user_guess1 = readLine()
+  spell_check()
+  print("""
+  
+  
+
+  
+  """)
+
+}
 
 //Algorithm:
 
@@ -149,3 +181,4 @@ if player_count == "1" {
 }
 
 print_blanks()
+turn()
