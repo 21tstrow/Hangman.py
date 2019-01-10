@@ -46,7 +46,107 @@ let easy_word_bank = ["acres", "adult", "advice", "arrangement", "attempt", "aug
 
 let hard_word_bank = ["akward", "bagpipes", "banjo", "bunglar", "croquet", "crypt", "dwarves", "fervid", "fishhook", "fjord", "gazebo", "gypsy", "haiku", "haphazard", "hyphen", "ivory", "jazzy", "jiffy", "jinx", "jukebox", "kayak", "kiosk", "klutz", "memento", "mystify", "numbskull", "ostracize", "oxygen", "pajama", "phlegm", "pixel", "polka", "quad", "quip", "rhythmic", "rogue", "sphinx", "squawk", "swivel", "toady", "twelfth", "unzip", "waxy", "wildebeest", "yacht", "zealous", "zigzag", "zippy", "zombie"]
 
+//The following images are the hangman's stages of progression
+var hangman_1: Any
+var hangman_2: Any
+var hangman_3: Any
+var hangman_4: Any
+var hangman_5: Any
+var hangman_6: Any
+var hangman_7: Any
+var hangman_8: Any
+var hangman_9: Any
 
+hangman_1 = "_____"
+
+hangman_2 = """
+  ____
+  |
+  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_3 = """
+  ____
+  |  O
+  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_4 = """
+  ____
+  |  O
+  |  |
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_5 = """
+  ____
+  |  O
+  |  |/
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_6 = """
+  ____
+  |  O
+  | \\|/
+  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_7 = """
+  ____
+  |  O
+  | \\|/
+  |  |
+  |
+  |
+  |
+_____
+"""
+
+hangman_8 = """
+  ___
+  |  O
+  | \\|/
+  |  |
+  | /
+  |
+  |
+_____
+"""
+
+hangman_9 = """
+  
+  ___
+  |  O
+  | \\|/
+  |  |
+  | / \\
+  |
+  |
+_____
+"""
 
 //Functions:
 
@@ -117,6 +217,40 @@ func spell_check() {
   }
 }
 
+func hangmanStage() {
+  if hangmanValue == 1 {
+    print(hangman_1)
+  }
+  if hangmanValue == 2 {
+    print(hangman_2)
+  }
+  if hangmanValue == 3 {
+    print(hangman_3)
+  }
+  if hangmanValue == 4 {
+    print(hangman_4)
+  }
+  if hangmanValue == 5 {
+    print(hangman_5)
+  }
+  if hangmanValue == 6 {
+    print(hangman_6)
+  }
+  if hangmanValue == 7 {
+    print(hangman_7)
+  }
+  if hangmanValue == 8 {
+    print(hangman_8)
+  }
+  if hangmanValue == 9 {
+    print(hangman_9)
+    print("YOU LOSE!!!")
+    print(" ")
+    print("This was what you were trying to guess: ", terminator: "")
+    print(word as Any)
+    //END GAME
+  }
+}
 
 func turn() {
   print(" ")
@@ -136,7 +270,7 @@ func turn() {
     if character == " " {
       print(" ")
     } else {
-      for guess_number in 0...user_guesses.count {
+      for guess_number in 0..<user_guesses.count {
         if character == user_guesses[guess_number] as? Character {
           print(character)
           testcaseLetters = 1 
@@ -159,6 +293,20 @@ func turn() {
     print("Sorry, that letter wasn't in there!")
     hangmanValue += 1
   }
+  hangmanStage()
+  print("")
+  print("These are your guessed letters: ", terminator: "")
+  for c in user_guesses {
+    print(c, terminator: ", ")
+  }
+  print(" ")
+  if testcaseEndGame != 1 {
+    print(" ")
+    print(" ")
+    print("YOU WIN!!!")
+    //EXIT GAME
+  }
+  turn()
 }
 //Algorithm:
 
