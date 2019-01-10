@@ -16,7 +16,7 @@ word = ""
 var easyorhard: String?
 easyorhard = ""
 
-var user_guesses = [] as NSArray
+var user_guesses = [] as NSMutableArray
 
 var templetter: String?
 templetter = ""
@@ -32,6 +32,12 @@ testcaseLetters = 0
 
 var testcaseEndGame: Int
 testcaseEndGame = 1
+
+var hangmanValue: Int
+hangmanValue = 1
+
+var testcaseCurGuess: Int
+testcaseCurGuess = 0
 //Word Banks:
 
 let easy_word_bank = ["acres", "adult", "advice", "arrangement", "attempt", "august", "autumn", "border", "breeze", "brick", "calm", "canal", "cast", "chose", "claws", "coach", "constantly", "contrast", "cookies", "customs", "damage", "Danny", "deeply", "depth", "discussion", "doll", "donkey", "Egypt", "Ellen", "essential", "exchange", "exist", "explanation", "facing", "film", "finest", "fireplace", "floating", "fort", "garage", "grabbed", "grandmother", "habit", "happily", "Harry", "heading", "hunter", "Illinois", "image", "independent", "instant", "January", "kids", "label", "Lee", "lungs", "manufacturing", "Martin", "mathematics", "melted", "memory", "mill", "mission", "monkey", "Mount", "mysterious", "neighborhood", "Norway", "nuts", "occasionally", "official", "ourselves", "palace", "Pennsylvania", "Philadelphia", "plates", "poetry", "policeman", "positive", "possibly", "practical", "pride", "promised", "recall", "relationship", "remarkable, require, rhyme, rocky, rubbed, rush, sale, satellites, satisfied, scared, selection", "shake", "shaking", "shallow", "shout", "silly", "simplest", "slight", "slip", "slope", "soap", "solar", "species", "spin", "stiff", "swung", "tales", "thumb", "tobacco", "toy", "trap", "treated", "tune", "University", "vapor", "vessels", "wealth", "wolf", "zoo"]
@@ -123,28 +129,37 @@ func turn() {
 
   
   """)
-  //Append Guess to guesses
-  for character in word {
+
+  user_guesses.insert(user_guess1 as Any, at: 0)
+  for character in word! {
     testcaseLetters = 0
     if character == " " {
       print(" ")
     } else {
-      for guess_number in user_guesses {
-        if character == guess_number {
+      for guess_number in 0...user_guesses.count {
+        if character == user_guesses[guess_number] as? Character {
           print(character)
-          testcaseLetters = 1
+          testcaseLetters = 1 
+          }
       if testcaseLetters != 1 {
-        print("_")
+        print("_", terminator:" ")
         testcaseEndGame = 1
       }
-  print(" ")
-        }
       }
     }
-
+  }
+  print(" ")
+  testcaseCurGuess = 0
+  for letters in word! {
+    if letters == user_guesses[0] as? Character {
+      testcaseCurGuess = 1
+    }
+  }
+  if testcaseCurGuess == 0 {
+    print("Sorry, that letter wasn't in there!")
+    hangmanValue += 1
   }
 }
-
 //Algorithm:
 
 print("How many players?")
